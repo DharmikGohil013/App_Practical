@@ -66,6 +66,29 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void _demoLogin() async {
+    // Save demo credentials
+    await StorageService.saveLoginData(
+      token: 'demo_token',
+      userId: 'demo_user_id',
+      userName: 'Demo User',
+      userEmail: 'demo@example.com',
+    );
+
+    if (!mounted) return;
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const MainNavScreen(
+          userName: 'Demo User',
+          userEmail: 'demo@example.com',
+          userId: 'demo_user_id',
+        ),
+      ),
+    );
+  }
+
   void _showSnackBar(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(msg), backgroundColor: const Color(0xFF00D09C)),
@@ -239,6 +262,39 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFF00D09C),
                               ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      // ── Demo Login Button ──
+                      Center(
+                        child: SizedBox(
+                          width: 180,
+                          height: 48,
+                          child: ElevatedButton(
+                            onPressed: _demoLogin,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.orange,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              elevation: 0,
+                            ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.play_arrow, size: 20),
+                                SizedBox(width: 8),
+                                Text(
+                                  'Demo Login',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),

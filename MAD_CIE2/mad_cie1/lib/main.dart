@@ -39,27 +39,36 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _checkLoginStatus() async {
-    // Wait a moment to show splash
-    await Future.delayed(const Duration(milliseconds: 500));
+    try {
+      // Wait a moment to show splash
+      await Future.delayed(const Duration(milliseconds: 500));
 
-    final isLoggedIn = await StorageService.isLoggedIn();
+      final isLoggedIn = await StorageService.isLoggedIn();
 
-    if (!mounted) return;
+      if (!mounted) return;
 
-    if (isLoggedIn) {
-      // Get saved user data
-      final userData = await StorageService.getUserData();
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => MainNavScreen(
-            userName: userData['userName'] ?? 'User',
-            userEmail: userData['userEmail'] ?? '',
-            userId: userData['userId'] ?? '',
+      if (isLoggedIn) {
+        // Get saved user data
+        final userData = await StorageService.getUserData();
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => MainNavScreen(
+              userName: userData['userName'] ?? 'User',
+              userEmail: userData['userEmail'] ?? '',
+              userId: userData['userId'] ?? '',
+            ),
           ),
-        ),
-      );
-    } else {
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const LoginScreen()),
+        );
+      }
+    } catch (e) {
+      // If any error occurs, go to login screen
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const LoginScreen()),
