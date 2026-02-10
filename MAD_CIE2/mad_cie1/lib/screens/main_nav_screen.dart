@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'home_tab.dart';
 import 'categories_screen.dart';
 import 'profile_screen.dart';
+import 'transactions_screen.dart';
 
 class MainNavScreen extends StatefulWidget {
   final String userName;
@@ -29,8 +30,11 @@ class _MainNavScreenState extends State<MainNavScreen> {
     super.initState();
     _pages = [
       HomeTab(userName: widget.userName, userId: widget.userId),
-      const _PlaceholderTab(icon: Icons.insert_chart_outlined, label: 'Analytics'),
-      const _PlaceholderTab(icon: Icons.compare_arrows, label: 'Transfers'),
+      const _PlaceholderTab(
+        icon: Icons.insert_chart_outlined,
+        label: 'Analytics',
+      ),
+      TransactionsScreen(userId: widget.userId),
       CategoriesScreen(userId: widget.userId),
       ProfileScreen(
         userName: widget.userName,
@@ -69,9 +73,9 @@ class _MainNavScreenState extends State<MainNavScreen> {
                   1,
                 ),
                 _navItem(
-                  Icons.compare_arrows,
-                  Icons.compare_arrows,
-                  'Transfers',
+                  Icons.receipt_long_outlined,
+                  Icons.receipt_long,
+                  'Transaction',
                   2,
                 ),
                 _navItem(

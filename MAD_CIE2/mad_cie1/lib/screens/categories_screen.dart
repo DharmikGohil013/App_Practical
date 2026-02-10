@@ -173,10 +173,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                               children: [
                                 _summaryCard(
                                   icon: Icons.account_balance_wallet,
-                                  iconColor: const Color(0xFF00D09C),
+                                  iconColor: _balance < 0
+                                      ? Colors.redAccent
+                                      : const Color(0xFF00D09C),
                                   label: 'Total Balance',
                                   value: '\$${_balance.toStringAsFixed(2)}',
-                                  valueColor: const Color(0xFF0D1F2D),
+                                  valueColor: _balance < 0
+                                      ? Colors.redAccent
+                                      : const Color(0xFF00D09C),
                                 ),
                                 const SizedBox(width: 12),
                                 _summaryCard(

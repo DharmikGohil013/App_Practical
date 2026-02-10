@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
+import '../services/storage_service.dart';
 import 'signup_screen.dart';
 import 'forgot_password_screen.dart';
 import 'main_nav_screen.dart';
@@ -34,6 +35,16 @@ class _LoginScreenState extends State<LoginScreen> {
       if (!mounted) return;
 
       if (result['success'] == true) {
+        // Save login data to local storage
+        await StorageService.saveLoginData(
+          token: result['token'] ?? '',
+          userId: result['user']['id'] ?? '',
+          userName: result['user']['fullName'] ?? 'User',
+          userEmail: result['user']['email'] ?? '',
+        );
+
+        if (!mounted) return;
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

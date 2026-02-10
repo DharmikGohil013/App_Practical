@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'edit_profile_screen.dart';
 import 'login_screen.dart';
+import '../services/storage_service.dart';
 
 class ProfileScreen extends StatelessWidget {
   final String userName;
@@ -176,7 +177,10 @@ class ProfileScreen extends StatelessWidget {
                     icon: Icons.logout,
                     iconColor: const Color(0xFF00D09C),
                     title: 'Logout',
-                    onTap: () {
+                    onTap: () async {
+                      // Clear stored login data
+                      await StorageService.clearLoginData();
+                      if (!context.mounted) return;
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (_) => const LoginScreen()),

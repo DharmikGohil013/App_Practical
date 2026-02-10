@@ -114,7 +114,7 @@ class _HomeTabState extends State<HomeTab> {
                   _balanceCard(
                     'Balance',
                     '\$${_balance.toStringAsFixed(2)}',
-                    const Color(0xFF00D09C),
+                    _balance < 0 ? Colors.redAccent : const Color(0xFF00D09C),
                   ),
                   const SizedBox(width: 12),
                   _balanceCard(
