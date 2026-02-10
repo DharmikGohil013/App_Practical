@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_tab.dart';
+import 'categories_screen.dart';
 import 'profile_screen.dart';
 
 class MainNavScreen extends StatefulWidget {
@@ -27,13 +28,10 @@ class _MainNavScreenState extends State<MainNavScreen> {
   void initState() {
     super.initState();
     _pages = [
-      HomeTab(userName: widget.userName),
-      const _PlaceholderTab(
-        icon: Icons.insert_chart_outlined,
-        label: 'Analytics',
-      ),
+      HomeTab(userName: widget.userName, userId: widget.userId),
+      const _PlaceholderTab(icon: Icons.insert_chart_outlined, label: 'Analytics'),
       const _PlaceholderTab(icon: Icons.compare_arrows, label: 'Transfers'),
-      const _PlaceholderTab(icon: Icons.layers_outlined, label: 'Groups'),
+      CategoriesScreen(userId: widget.userId),
       ProfileScreen(
         userName: widget.userName,
         userEmail: widget.userEmail,
@@ -76,7 +74,12 @@ class _MainNavScreenState extends State<MainNavScreen> {
                   'Transfers',
                   2,
                 ),
-                _navItem(Icons.layers_outlined, Icons.layers, 'Groups', 3),
+                _navItem(
+                  Icons.category_outlined,
+                  Icons.category,
+                  'Categories',
+                  3,
+                ),
                 _navItem(Icons.person_outline, Icons.person, 'Profile', 4),
               ],
             ),
